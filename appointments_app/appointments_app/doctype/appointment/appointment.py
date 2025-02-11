@@ -12,10 +12,10 @@ class Appointment(Document):
 			frappe.throw("Contact number is required")
 		if len(self.contact_number) == 10:	
 			self.contact_number = f"+91{self.contact_number}"
-		elif len(self.contact_number) == 12 and self.contact_number.startswith("+91"):
+		elif len(self.contact_number) == 13 and self.contact_number.startswith("+91"):
 			self.contact_number = self.contact_number
 		else:
-			frappe.throw("Contact number should be 10 digits except the country code")
+			frappe.throw("Contact number should be 10 digits with country code by default is +91")
 			
 		
 
