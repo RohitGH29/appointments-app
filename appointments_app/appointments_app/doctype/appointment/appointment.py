@@ -3,6 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe.utils import format_time
 
 
 class Appointment(Document):
@@ -55,8 +56,8 @@ class Appointment(Document):
 	# Here we use a confiramtion message to let the user know that their appointment has been booked
 	def send_confirmation_message(self):
 		schedule_shift = frappe.get_doc("Schedule Shift", self.shift)
-		start_time = schedule_shift.start_time
-		end_time = schedule_shift.end_time
+		start_time = format_time(schedule_shift.start_time,"HH:mm")
+		end_time = format_time(schedule_shift.end_time,"HH:mm")
 
 		frappe.enqueue(
 			'appointments_app.utils.send_message',
