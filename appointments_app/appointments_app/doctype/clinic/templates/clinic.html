@@ -6,13 +6,17 @@
 <p><strong>Address</strong></p>
 <p>{{doc.address}}</p>
 
+<!-- <p>{{ doc.name }}</p> -->
+
 <p><strong>Phone</strong></p>
 <p>{{doc.contact_number}}</p>
 
 {% set doctor= frappe.get_doc("Doctor", doc.doctor)%}
 
-<p><strong>Doctor</strong></p>
+<!-- <p><strong>Doctor</strong> <span id= "status-badge" class="badge badge-{{'success' if doc.doctor_in else 'secondary'}}">{{'IN' if doc.doctor_in else 'OUT'}}</span></p> -->
+<p><strong>Doctor</strong> <span id="status-badge" class="badge badge-{{'success' if doc.doctor_in else 'secondary'}}">{{ 'IN' if doc.doctor_in else 'OUT'}}</span></p>
 <p>{{doctor.full_name}},{{doctor.speciality}}</p>
+
 
 
 <p><strong>Timings</strong></p>
@@ -28,6 +32,21 @@
 </ul>
 
 <a href="/book-appointments/new?clinic={{doc.name}}" class="btn btn-info">Book Appointment</a>
+
+<script>
+    frappe.ready(() => {
+        frappe.realtime.on("doctor_status_changed", (data) => {
+            if (data.clinic == "Kale Nursing Home") {
+                if (data.updated_status == "IN") {
+                    $("#status-badge").removeClass("badge-secondary").addClass("badge-success").text(data.updated_status)
+                } else {
+                    $("#status-badge").removeClass("badge-success").addClass("badge-secondary").text(data.updated_status)
+                }
+            }
+        })
+    })
+</script>
+
 
 {% endblock %}
 

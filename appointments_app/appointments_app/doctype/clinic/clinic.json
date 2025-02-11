@@ -12,7 +12,8 @@
   "route",
   "column_break_gzpf",
   "address",
-  "is_published"
+  "is_published",
+  "doctor_in"
  ],
  "fields": [
   {
@@ -49,6 +50,12 @@
    "label": "Doctor",
    "options": "Doctor",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "doctor_in",
+   "fieldtype": "Check",
+   "label": "Doctor In"
   }
  ],
  "has_web_view": 1,
@@ -60,7 +67,7 @@
    "link_fieldname": "clinic"
   }
  ],
- "modified": "2025-02-10 09:49:40.566014",
+ "modified": "2025-02-11 12:30:06.768088",
  "modified_by": "Administrator",
  "module": "Appointments App",
  "name": "Clinic",
