@@ -6,6 +6,8 @@ from frappe.model.document import Document
 
 
 class Appointment(Document):
+
+	
 	def validate(self):
 		# validate the contact number, if it doesn't have a country code , prepand +91 by default or contact number length should be 10 digits except the country code
 		if not self.contact_number:
@@ -52,10 +54,14 @@ class Appointment(Document):
 
 	# Here we use a confiramtion message to let the user know that their appointment has been booked
 	def send_confirmation_message(self):
+		schedule_shift = frappe.get_doc("Schedule Shift", self.shift)
+		start_time = schedule_shift.start_time
+		end_time = schedule_shift.end_time
+
 		frappe.enqueue(
 			'appointments_app.utils.send_message',
 			#  queue='short',
-			 body=f"Appointment booked! Your queue number is {self.queue_number} at {self.clinic} on {self.date} at {self.shift}",
+			 body=f"Appointment booked! Patient name: {self.patient_name} your queue number is {self.queue_number} at Clinic name: {self.clinic} on Date: {self.date} at Shift: {start_time} - {end_time}",
 			 from_="+16204558661", 
 			 to=self.contact_number
 		)
