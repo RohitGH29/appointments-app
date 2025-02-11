@@ -6,6 +6,20 @@ from frappe.model.document import Document
 
 
 class Appointment(Document):
+	def validate(self):
+		# validate the contact number, if it doesn't have a country code , prepand +91 by default or contact number length should be 10 digits except the country code
+		if not self.contact_number:
+			frappe.throw("Contact number is required")
+		if len(self.contact_number) == 10:	
+			self.contact_number = f"+91{self.contact_number}"
+		elif len(self.contact_number) == 12 and self.contact_number.startswith("+91"):
+			self.contact_number = self.contact_number
+		else:
+			frappe.throw("Contact number should be 10 digits except the country code")
+			
+		
+
+
 	def after_insert(self):
 		self.queue_number = self.add_to_appointment_queue()
 		# attach csrf token + queue number as key & key number as value

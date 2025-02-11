@@ -21,7 +21,7 @@
  "list_columns": [],
  "login_required": 0,
  "max_attachment_size": 0,
- "modified": "2025-02-10 15:38:34.489738",
+ "modified": "2025-02-11 15:37:54.529262",
  "modified_by": "Administrator",
  "module": "Appointments App",
  "name": "book-appointments",
@@ -58,7 +58,7 @@
    "max_value": 0,
    "precision": "",
    "read_only": 0,
-   "reqd": 0,
+   "reqd": 1,
    "show_in_filter": 0
   },
   {
