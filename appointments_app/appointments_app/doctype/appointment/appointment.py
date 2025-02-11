@@ -11,6 +11,7 @@ class Appointment(Document):
 		# attach csrf token + queue number as key & key number as value
 		frappe.cache.set_value(f"{frappe.session.sid}:queue_number", self.queue_number)
 		self.save(ignore_permissions= True)
+		self.send_confirmation_message()
 
 	def add_to_appointment_queue(self):
 		filters = {
@@ -34,3 +35,13 @@ class Appointment(Document):
 		q.save(ignore_permissions=True)
 
 		return len(q.queue)
+
+	# Here we use a confiramtion message to let the user know that their appointment has been booked
+	def send_confirmation_message(self):
+		frappe.enqueue(
+			'appointments_app.utils.send_message',
+			#  queue='short',
+			 body=f"Appointment booked! Your queue number is {self.queue_number} at {self.clinic} on {self.date} at {self.shift}",
+			 from_="+16204558661", 
+			 to=self.contact_number
+		)
