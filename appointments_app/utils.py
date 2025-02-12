@@ -25,11 +25,11 @@ def send_message(body, from_, to):
 
     try:
         frappe.get_doc({
-            "doctype": "Appointments Sms Log",
+            "doctype": "Appointments SMS Log",
             "twilio_sid": message.sid,
             "body": body,
             "from_": from_,
-            "to": to
+            "to_": to
         }
         ).insert(ignore_permissions=True)
 

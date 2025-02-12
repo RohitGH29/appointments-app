@@ -22,22 +22,25 @@
   {
    "fieldname": "body",
    "fieldtype": "Small Text",
-   "label": "Body"
+   "label": "Body",
+   "read_only": 1
   },
   {
    "fieldname": "from_",
    "fieldtype": "Data",
-   "label": "From"
+   "label": "From",
+   "read_only": 1
   },
   {
    "fieldname": "to_",
    "fieldtype": "Data",
-   "label": "To"
+   "label": "To",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-02-11 10:54:56.816778",
+ "modified": "2025-02-12 12:10:27.348765",
  "modified_by": "Administrator",
  "module": "Appointments App",
  "name": "Appointments SMS Log",
